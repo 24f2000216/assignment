@@ -3,6 +3,7 @@ name: Daily Commit
 on:
   schedule:
     - cron: '30 10 * * *'  # Runs daily at 10:30 UTC, adjust to your needs
+    - workflow_dispatch:
 
 jobs:
   commit:
@@ -21,7 +22,3 @@ jobs:
           git add daily_update.txt
           git commit -m "Daily automated commit" || echo "No changes to commit"
           git push
-on:
-  schedule:
-    - cron: '30 10 * * *'
-  workflow_dispatch:
