@@ -1,0 +1,27 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '30 10 * * *'  # Runs daily at 10:30 UTC, adjust to your needs
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set git user - 24f2000216@ds.study.iitm.ac.in
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "24f2000216@ds.study.iitm.ac.in"
+
+      - name: Make a commit - 24f2000216@ds.study.iitm.ac.in
+        run: |
+          echo "Daily update $(date)" >> daily_update.txt
+          git add daily_update.txt
+          git commit -m "Daily automated commit" || echo "No changes to commit"
+          git push
+on:
+  schedule:
+    - cron: '30 10 * * *'
+  workflow_dispatch:
