@@ -2,8 +2,8 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    - cron: '0 9 * * *'  # Runs daily at 9:00 UTC
-  workflow_dispatch:     # Also enable manual trigger
+    - cron: '0 9 * * *'
+  workflow_dispatch:
 
 jobs:
   auto-commit:
@@ -19,9 +19,8 @@ jobs:
           echo "Daily update $(date)" >> daily_update.txt
           git add daily_update.txt
           git commit -m "Daily automated commit" || echo "No changes to commit"
-          git push
       - name: Push changes
-          env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          run: |
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} HEAD:${{ github.ref }}
